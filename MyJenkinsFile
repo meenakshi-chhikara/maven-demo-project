@@ -11,7 +11,7 @@ pipeline{
 	    
                steps{
 		 echo 'cloning..'
-                 git 'https://github.com/meenakshi-chhikara/DevOpsClassCodes.git'
+                 git 'https://github.com/meenakshi-chhikara/maven-demo-project.git'
               }
           }
           stage('Compile'){
@@ -59,7 +59,7 @@ pipeline{
            steps {
               
                 sh 'docker build -t devopsclasscodes:latest .' 
-                sh 'docker tag devopsclasscodes:latest meenakshichhikara/devopsclasscodes:latest'
+                sh 'docker tag devopsclasscodes:latest meenakshichhikara/maven-demo:latest'
                
           }
         }
@@ -68,7 +68,7 @@ pipeline{
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push  meenakshichhikara/devopsclasscodes:latest'
+          sh  'docker push   meenakshichhikara/maven-demo:latest'
         }
                   
           }
@@ -77,7 +77,7 @@ pipeline{
       stage('Deploy using container') {
            steps 
   		 {
-                sh "docker run -d -p 8090:8080  meenakshichhikara/devopsclasscodes:latest'"
+                sh "docker run -d -p 8090:8080   meenakshichhikara/maven-demo:latest'"
  
             }
         }
